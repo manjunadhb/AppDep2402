@@ -22,7 +22,7 @@ function EditProfile() {
     ageInputRef.current.value = storeObj.userDetails.age;
     emailInputRef.current.value = storeObj.userDetails.email;
     mobileNoInputRef.current.value = storeObj.userDetails.mobileNo;
-    setProfilePic(`http://localhost:4567/${storeObj.userDetails.profilePic}`);
+    setProfilePic(`/${storeObj.userDetails.profilePic}`);
   }, []);
 
   let [profilePic, setProfilePic] = useState("./images/noImage.png");
@@ -46,7 +46,7 @@ function EditProfile() {
     };
 
     let JSONData = await fetch(
-      "http://localhost:4567/updateUserDetails",
+      "/updateUserDetails",
       reqOptions
     );
 

@@ -12,63 +12,6 @@ function Signup() {
 
   let [profilePic, setProfilePic] = useState("./images/noImage.png");
 
-  let onSignup = async () => {
-    let myHeader = new Headers();
-    myHeader.append("content-type", "application/json");
-
-    let dataToSend = {
-      firstName: firstNameInputRef.current.value,
-      lastName: lastNameInputRef.current.value,
-      age: ageInputRef.current.value,
-      email: emailInputRef.current.value,
-      password: passwordInputRef.current.value,
-      mobileNo: mobileNoInputRef.current.value,
-      profilePic: profilePicInputRef.current.value,
-    };
-
-    let reqOptions = {
-      method: "POST",
-      headers: myHeader,
-      body: JSON.stringify(dataToSend),
-    };
-
-    let JSONData = await fetch("http://localhost:4567/register", reqOptions);
-
-    let JSOData = await JSONData.json();
-
-    alert(JSOData.msg);
-
-    console.log(JSOData);
-  };
-
-  let onSignupUsingURLE = async () => {
-    let myHeader = new Headers();
-    myHeader.append("content-type", "application/x-www-form-urlencoded");
-
-    let dataToSend = new URLSearchParams();
-    dataToSend.append("firstName", firstNameInputRef.current.value);
-    dataToSend.append("lastName", lastNameInputRef.current.value);
-    dataToSend.append("age", ageInputRef.current.value);
-    dataToSend.append("email", emailInputRef.current.value);
-    dataToSend.append("password", passwordInputRef.current.value);
-    dataToSend.append("mobileNo", mobileNoInputRef.current.value);
-    dataToSend.append("profilePic", profilePicInputRef.current.value);
-
-    let reqOptions = {
-      method: "POST",
-      headers: myHeader,
-      body: dataToSend,
-    };
-
-    let JSONData = await fetch("http://localhost:4567/register", reqOptions);
-
-    let JSOData = await JSONData.json();
-
-    alert(JSOData.msg);
-
-    console.log(JSOData);
-  };
-
   let onSignupUsingFD = async () => {
     let dataToSend = new FormData();
     dataToSend.append("firstName", firstNameInputRef.current.value);
@@ -87,7 +30,7 @@ function Signup() {
       body: dataToSend,
     };
 
-    let JSONData = await fetch("http://localhost:4567/register", reqOptions);
+    let JSONData = await fetch("/register", reqOptions);
 
     let JSOData = await JSONData.json();
 
@@ -142,26 +85,10 @@ function Signup() {
           <button
             type="button"
             onClick={() => {
-              onSignup();
-            }}
-          >
-            Sign Up (JSON)
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              onSignupUsingURLE();
-            }}
-          >
-            Sign Up (URLE)
-          </button>
-          <button
-            type="button"
-            onClick={() => {
               onSignupUsingFD();
             }}
           >
-            Sign Up (FD)
+            Sign Up
           </button>
         </div>
       </form>

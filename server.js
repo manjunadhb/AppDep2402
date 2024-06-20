@@ -4,6 +4,7 @@ let cors = require("cors");
 let multer = require("multer");
 let jwt = require("jsonwebtoken");
 let dotenv = require("dotenv");
+let path = require("node:path");
 dotenv.config();
 
 const storage = multer.diskStorage({
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 app.use("/uploads", express.static("uploads"));
+app.use(express.static(path.join(__dirname, "./client/build")));
 
 let userSchema = new mongoose.Schema({
   firstName: String,
@@ -35,6 +37,10 @@ let userSchema = new mongoose.Schema({
 });
 
 let User = new mongoose.model("user", userSchema);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 app.post("/register", upload.single("profilePic"), async (req, res) => {
   console.log(req.file);
